@@ -27,8 +27,7 @@ public class OrderRepository {
     }
 
     public void addPartner(String partnerId){
-        if(!deliveryPartnerMap.containsKey(partnerId))
-            deliveryPartnerMap.put(partnerId, new DeliveryPartner(partnerId));
+        deliveryPartnerMap.put(partnerId, new DeliveryPartner(partnerId));
     }
 
     public void addOrderPartnerPair(String orderId, String deliveryPartnerId){
@@ -93,7 +92,16 @@ public class OrderRepository {
 
     public String getLastDeliveryTimeByPartnerId(String partnerId){
         ArrayList<String>order = deliveryPartnerOrderListMap.get(partnerId);
-        return String.valueOf(orderMap.get(order.size()-1).getDeliveryTime());
+        int maxDeliverytime =0;
+        String id=null;
+        for(String orderId : order){
+            int time = orderMap.get(orderId).getDeliveryTime();
+            if(maxDeliverytime < time){
+                maxDeliverytime = time;
+                id = orderId;
+            }
+        }
+        return id;
     }
 
     public void deletePartnerById(String partnerId){
