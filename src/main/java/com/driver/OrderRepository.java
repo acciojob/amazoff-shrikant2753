@@ -72,6 +72,11 @@ public class OrderRepository {
         return orderMap.size() - orderDeliveryPartnerMap.size();
     }
 
+    public String getLastDeliveryTimeByPartnerId(String partnerId){
+        ArrayList<String>order = deliveryPartnerOrderListMap.get(partnerId);
+        return String.valueOf(orderMap.get(order.size()-1).getDeliveryTime());
+    }
+
     public void deletePartnerById(String partnerId){
         if(deliveryPartnerMap.containsKey(partnerId)){
             deliveryPartnerMap.remove(partnerId);
