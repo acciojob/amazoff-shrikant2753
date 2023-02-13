@@ -27,25 +27,29 @@ public class OrderRepository {
     }
 
     public void addPartner(String partnerId){
-        deliveryPartnerMap.put(partnerId, new DeliveryPartner(partnerId));
+        if(!deliveryPartnerMap.containsKey(partnerId))
+            deliveryPartnerMap.put(partnerId, new DeliveryPartner(partnerId));
     }
 
     public void addOrderPartnerPair(String orderId, String deliveryPartnerId){
         orderDeliveryPartnerMap.put(orderId, deliveryPartnerId);
+        DeliveryPartner dp = new DeliveryPartner();
+        dp.setNumberOfOrders(dp.getNumberOfOrders()+1);
+
         ArrayList<String>orderList = deliveryPartnerOrderListMap.getOrDefault(deliveryPartnerId, new ArrayList<>());
         orderList.add(orderId);
         deliveryPartnerOrderListMap.put(deliveryPartnerId, orderList);
     }
 
     public Order getOrderById(String orderId){
-//        if(!orderMap.containsKey(orderId))
-//            return null;
+        if(!orderMap.containsKey(orderId))
+            return null;
         return orderMap.get(orderId);
     }
 
     public DeliveryPartner getPartnerById(String partnerId){
-//        if(!deliveryPartnerMap.containsKey(partnerId))
-//            return null;
+        if(!deliveryPartnerMap.containsKey(partnerId))
+            return null;
         return deliveryPartnerMap.get(partnerId);
     }
 
