@@ -1,6 +1,6 @@
 package com.driver;
 
-import io.swagger.models.auth.In;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -38,8 +38,8 @@ public class OrderRepository {
     }
 
     public Order getOrderById(String orderId){
-        if(!orderMap.containsKey(orderId))
-            return null;
+//        if(!orderMap.containsKey(orderId))
+//            return null;
         return orderMap.get(orderId);
     }
 
@@ -69,12 +69,7 @@ public class OrderRepository {
     }
 
     public int getCountOfUnassignedOrders(){
-        int count=0;
-        for(String orderId : orderMap.keySet()){
-            if(!orderDeliveryPartnerMap.containsKey(orderId))
-                count++;
-        }
-        return count;
+        return orderMap.size() - orderDeliveryPartnerMap.size();
     }
 
     public void deletePartnerById(String partnerId){
