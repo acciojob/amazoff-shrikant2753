@@ -37,4 +37,8 @@ public class OrderService {
     public List<String> getOrdersByPartnerId(String partnerId){
         return orderRepository.getOrdersByPartnerId(partnerId);
     }
+
+    public List<String> getAllOrder(){
+        return orderRepository.getAllOrder();
+    }
 }

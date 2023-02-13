@@ -61,4 +61,11 @@ public class OrderRepository {
         return deliveryPartnerOrderListMap.get(partnerId);
     }
 
+    public List<String> getAllOrder(){
+        List<String>order = new ArrayList<>();
+        for(String orderId : orderMap.keySet())
+            order.add(orderId);
+        return order;
+    }
+
 }
