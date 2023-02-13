@@ -68,4 +68,29 @@ public class OrderRepository {
         return order;
     }
 
+    public int getCountOfUnassignedOrders(){
+        int count=0;
+        for(String orderId : orderMap.keySet()){
+            if(!orderDeliveryPartnerMap.containsKey(orderId))
+                count++;
+        }
+        return count;
+    }
+
+
+    public void deleteOrderById(String orderId){
+        if(orderMap.containsKey(orderId)){
+            orderMap.remove(orderId);
+            String deliveryPartnerId = orderDeliveryPartnerMap.get(orderId);
+            orderDeliveryPartnerMap.remove(orderId);
+            if(deliveryPartnerMap.containsKey(deliveryPartnerId)){
+                ArrayList<String> orders = deliveryPartnerOrderListMap.get(deliveryPartnerId);
+                for(String id : orders){
+                    if(id.equals(orderId))
+                        orders.remove(id);
+                }
+            }
+        }
+    }
+
 }
