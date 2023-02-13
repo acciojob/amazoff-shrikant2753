@@ -76,6 +76,21 @@ public class OrderRepository {
         return orderMap.size() - orderDeliveryPartnerMap.size();
     }
 
+    public int  getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId){
+        if(!deliveryPartnerOrderListMap.containsKey(partnerId))
+            return 0;
+        int count =0;
+        for(String orderId : deliveryPartnerOrderListMap.get(partnerId)){
+            int hr = Integer.valueOf(time.substring(0, 2));
+            int min = Integer.valueOf(time.substring(3));
+            int time1 = hr*60 + min;
+            if(time1 < orderMap.get(orderId).getDeliveryTime()){
+                count++;
+            }
+        }
+        return count;
+    }
+
     public String getLastDeliveryTimeByPartnerId(String partnerId){
         ArrayList<String>order = deliveryPartnerOrderListMap.get(partnerId);
         return String.valueOf(orderMap.get(order.size()-1).getDeliveryTime());
