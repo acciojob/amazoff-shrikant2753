@@ -77,6 +77,17 @@ public class OrderRepository {
         return count;
     }
 
+    public void deletePartnerById(String partnerId){
+        if(deliveryPartnerMap.containsKey(partnerId)){
+            deliveryPartnerMap.remove(partnerId);
+            ArrayList<String> orders = deliveryPartnerOrderListMap.get(partnerId);
+            for(String id:orders){
+                orderDeliveryPartnerMap.remove(id);
+            }
+            deliveryPartnerOrderListMap.remove(partnerId);
+        }
+    }
+
 
     public void deleteOrderById(String orderId){
         if(orderMap.containsKey(orderId)){
